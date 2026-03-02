@@ -78,7 +78,7 @@ Its website source implementation is available in `src/FytSoa.Web`, and is kept 
 - Runtime API config with `public/runtime-config.js`
 - Reusable business components (table/form/upload/workflow)
 
-## Functional Modules (from `doc/fytsoa_admin.sql`)
+## Functional Modules
 
 - **System & Permission**: admin, role, menu, permission, code dictionary
 - **Multi-Tenant & Organization**: tenant, org tree/closure, position, employment, reporting
