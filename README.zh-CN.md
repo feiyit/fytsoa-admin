@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/fytsoa-cover.svg" alt="FytSoa Cover" width="100%" />
+  <img src="https://raw.githubusercontent.com/feiyit/fytsoa-admin/main/doc/fytsoa-cover.jpg" alt="FytSoa Cover" width="100%" />
 </p>
 
 <p align="center">
@@ -174,10 +174,6 @@ pnpm dev
 - Swagger：`http://localhost:5111/swagger`
 - FytApiUI：`http://localhost:5111/fytapiui/index.html`
 
-## 开源建议
-
-- 建议补充：`LICENSE`、`CHANGELOG.md`、`CONTRIBUTING.md`
-- 发布前建议清理构建产物（`bin/`、`obj/`、`node_modules/`）
 
 ## 适用场景
 

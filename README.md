@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/assets/fytsoa-cover.svg" alt="FytSoa Cover" width="100%" />
+  <img src="https://raw.githubusercontent.com/feiyit/fytsoa-admin/main/doc/fytsoa-cover.jpg" alt="FytSoa Cover" width="100%" />
 </p>
 
 <p align="center">
@@ -174,10 +174,6 @@ Configure via:
 - Swagger: `http://localhost:5111/swagger`
 - FytApiUI: `http://localhost:5111/fytapiui/index.html`
 
-## Open-Source Notes
-
-- Recommended to add: `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`
-- Recommended to clean build artifacts before publishing (`bin/`, `obj/`, `node_modules/`)
 
 ## Suitable Scenarios
 
