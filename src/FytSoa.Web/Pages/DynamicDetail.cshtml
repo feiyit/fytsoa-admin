@@ -1,0 +1,178 @@
+@page "/dynamic/detail/{id?}"
+@using FytSoa.Application.Cms
+@using FytSoa.Common.Param
+@inject CmsColumnService _columnService
+@inject CmsArticleService _articleService
+@{
+    var paramId = RouteData.Values["id"].ToString();
+    var article =  _articleService.GetAsync(long.Parse(paramId)).Result;
+    var articleList = _articleService.PagesAsync(new CmsArticleParam() { Limit = 3, Id = article.ColumnId }).Result.Items;
+    ViewData["Title"] = article.Title;
+    ViewData["Key"] = article.Tag;
+    ViewData["Desc"] = article.Summary;
+    ViewData["Nav"] = 3;
+}
+<!-- Page Header -->
+    <section class="page-header">
+        <div class="hero-overlay"></div>
+        <div class="mesh-bg"></div>
+        <div class="tech-grid"></div>
+        <div class="floating-elements">
+            <div class="float-circle float-1"></div>
+            <div class="float-circle float-2"></div>
+            <div class="float-square float-4"></div>
+        </div>
+        <div class="container text-center">
+            <div class="hero-badge fade-in">
+                <i class="fas fa-newspaper"></i> 行业资讯
+            </div>
+            <h1 class="display-4 fw-bold mb-3">新闻详情</h1>
+            <p class="lead mb-4">探索最新的技术趋势与行业动态,保持领先优势</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="/">首页</a></li>
+                    <li class="breadcrumb-item"><a href="/dynamic">新闻</a></li>
+                    <li class="breadcrumb-item active">详情</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- News Detail Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- 文章头部 -->
+                    <article class="news-detail-article">
+                        <div class="news-detail-header">
+                            <div class="news-detail-tags mb-3">
+                                @foreach (var tag in article.Tag)
+                                {
+                                    <span class="news-tag">@tag</span>
+                                }
+                            </div>
+                            <h1 class="news-detail-title">@article.Title</h1>
+                            <div class="news-detail-meta">
+                                <span><i class="far fa-calendar-alt"></i> @article.PublishTime.ToShortDateString()</span>
+                                <span><i class="far fa-eye"></i> @article.Hits 阅读</span>
+                                <span><i class="far fa-clock"></i> 热门资讯</span>
+                            </div>
+                        </div>
+
+                        <!-- 文章封面图
+                        <div class="news-detail-cover mb-5">
+                            <img src="@article.ImgUrl" alt="@article.Title" class="img-fluid rounded">
+                        </div> -->
+
+                        <!-- 文章内容 -->
+                        <div class="news-detail-content">
+                            @Html.Raw(article.Content)
+                        </div>
+
+                        <!-- 文章标签 -->
+                        <div class="news-detail-tags-section">
+                            <h4>相关标签</h4>
+                            <div class="tech-tags">
+                                @foreach (var tag in article.Tag)
+                                {
+                                    <span class="tech-tag">@tag</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- 分享按钮 -->
+                        <div class="news-detail-share">
+                            <h4>分享文章</h4>
+                            <div class="share-buttons">
+                                <a href="#" class="share-btn share-wechat"><i class="fab fa-weixin"></i> 微信</a>
+                                <a href="#" class="share-btn share-weibo"><i class="fab fa-weibo"></i> 微博</a>
+                                <a href="#" class="share-btn share-qq"><i class="fab fa-qq"></i> QQ</a>
+                                <a href="#" class="share-btn share-link"><i class="fas fa-link"></i> 复制链接</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 侧边栏 -->
+                <div class="col-lg-4">
+                    <div class="news-sidebar">
+                        <!-- 最新文章 -->
+                        <div class="news-sidebar-card mb-4">
+                            <h3 class="news-sidebar-title">最新文章</h3>
+                            @foreach (var item in articleList)
+                            {
+                                <div class="related-news-item">
+                                    <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title">
+                                    <div class="related-news-info">
+                                        <h4>@item.Title</h4>
+                                        <p class="text-muted small"><i class="far fa-calendar-alt"></i> @item.PublishTime.ToShortDateString()</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- 热门标签 -->
+                        <div class="news-sidebar-card mb-4">
+                            <h3 class="news-sidebar-title">热门标签</h3>
+                            <div class="tech-tags">
+                                @foreach (var tag in article.Tag)
+                                {
+                                    <span class="tech-tag">@tag</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="news-sidebar-card">
+                            <h3 class="news-sidebar-title">需要帮助？</h3>
+                            <p class="mb-3">如果您对网站设计或开发有任何疑问，欢迎联系我们的专业团队</p>
+                            <a href="/contactus" target="_blank" class="cta-button w-100 text-center">
+                                立即咨询 <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @section Scripts
+    {
+        <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+    }

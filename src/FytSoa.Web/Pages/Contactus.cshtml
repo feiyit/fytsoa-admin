@@ -1,0 +1,353 @@
+@page
+@{
+    ViewData["Title"] = "联系地址_" + Site.CurrentSite.SeoTitle;
+    ViewData["Key"] = Site.CurrentSite.SeoKey;
+    ViewData["Desc"] = Site.CurrentSite.SeoDescribe;
+    ViewData["Nav"] = 5;
+}
+<!-- Page Header / Tech Banner -->
+<section class="page-header">
+    <!-- 动态科技背景层 -->
+    <div class="mesh-bg"></div>
+    <div class="particles-bg" id="contactParticles"></div>
+    <div class="tech-grid"></div>
+    <div class="floating-elements" aria-hidden="true">
+        <div class="float-circle float-1"></div>
+        <div class="float-circle float-2"></div>
+        <div class="float-circle float-3"></div>
+        <div class="float-square float-4"></div>
+        <div class="float-square float-5"></div>
+    </div>
+
+    <!-- 文案内容层（提权到前景，避免被遮挡） -->
+    <div class="container text-center hero-content">
+        <div class="hero-badge"><i class="fas fa-satellite-dish"></i> 即刻与我们联系</div>
+        <h1 class="display-4 fw-bold mb-3">联系我们</h1>
+        <p class="lead">让我们一起开启您的数字化之旅</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="/">首页</a></li>
+                <li class="breadcrumb-item active">联系</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 fade-in mb-5">
+                <h2 class="mb-4">发送消息</h2>
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="您的姓名"
+                               autocomplete="name" required>
+                        <i class="fas fa-user form-icon"></i>
+                        <div class="invalid-feedback" id="nameFeedback">请输入您的姓名（至少2个字符）</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="您的邮箱"
+                               autocomplete="email" required>
+                        <i class="fas fa-envelope form-icon"></i>
+                        <div class="invalid-feedback" id="emailFeedback">请输入有效的邮箱地址</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="联系电话"
+                               autocomplete="tel" required>
+                        <i class="fas fa-phone form-icon"></i>
+                        <div class="invalid-feedback" id="phoneFeedback">请输入有效的手机号或座机号</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <select class="form-control" id="service" name="service" required>
+                            <option value="">请选择服务类型</option>
+                            <option value="网站建设">网站建设</option>
+                            <option value="软件开发">软件开发</option>
+                            <option value="APP/小程序开发">APP/小程序开发</option>
+                            <option value="视觉设计">视觉设计</option>
+                            <option value="人才外包">人才外包</option>
+                            <option value="ERP进销存管理系统">ERP进销存管理系统</option>
+                            <option value="CRM客户关系管理系统">CRM客户关系管理系统</option>
+                            <option value="商城系统">商城系统</option>
+                            <option value="其他咨询">其他咨询</option>
+                        </select>
+                        <i class="fas fa-list form-icon"></i>
+                        <div class="invalid-feedback" id="serviceFeedback">请选择您希望咨询的服务类型</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" id="message" name="message" rows="6"
+                                  placeholder="项目需求描述（不少于10个字）" required></textarea>
+                        <i class="fas fa-comment-dots form-icon"></i>
+                        <div class="invalid-feedback" id="messageFeedback">请简单描述您的需求，便于我们快速响应</div>
+                    </div>
+                    <button type="submit" class="submit-btn w-100" id="submitBtn">
+                        <span class="btn-text">提交咨询</span>
+                    </button>
+                    <!-- 成功/失败提示容器（Bootstrap Toast/Alert 可复用） -->
+                    <div id="toastRoot" class="position-fixed top-0 end-0 p-3" style="z-index: 1080"></div>
+                    @Html.AntiForgeryToken()
+                </form>
+            </div>
+
+            <div class="col-lg-6 fade-in">
+                <h2 class="mb-4">联系方式</h2>
+                <div class="contact-info">
+                    <div class="contact-item mb-4">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>公司地址</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyAddress</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <i class="fas fa-phone" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>联系电话</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyTel</p>
+                            <p class="text-muted small mb-0">周一至周五 9:00 - 18:00</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <i class="fas fa-envelope" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>电子邮箱</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyEmail</p>
+                            <p class="text-muted small mb-0">我们会在24小时内回复您</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <i class="fas fa-clock" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>工作时间</strong>
+                            <p class="text-muted mb-0">周一至周五 9:00 - 18:00</p>
+                            <p class="text-muted small mb-0">周末及法定节假日休息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">常见问题</h2>
+        <p class="section-subtitle">快速了解您可能关心的问题</p>
+        <div class="row mt-5">
+            <div class="col-lg-6 fade-in mb-4">
+                <div class="service-detail-card">
+                    <h4 class="mb-3"><i class="fas fa-question-circle text-primary me-2"></i>项目开发周期是多久？</h4>
+                    <p class="text-muted">
+                        根据项目复杂度不同，一般网站项目需要2-4周，软件系统需要1-3个月。我们会在需求沟通后给出详细的项目计划和时间表。</p>
+                </div>
+            </div>
+            <div class="col-lg-6 fade-in mb-4">
+                <div class="service-detail-card">
+                    <h4 class="mb-3"><i class="fas fa-question-circle text-primary me-2"></i>如何保证项目质量？</h4>
+                    <p class="text-muted">
+                        我们采用敏捷开发流程，每个阶段都有严格的测试和验收标准。同时提供项目演示、用户测试等环节，确保最终交付满足您的需求。</p>
+                </div>
+            </div>
+            <div class="col-lg-6 fade-in mb-4">
+                <div class="service-detail-card">
+                    <h4 class="mb-3"><i class="fas fa-question-circle text-primary me-2"></i>售后服务如何？</h4>
+                    <p class="text-muted">
+                        我们提供1年免费技术支持和维护服务，7×24小时响应机制。超过质保期后，也可选择年度维护服务套餐。</p>
+                </div>
+            </div>
+            <div class="col-lg-6 fade-in mb-4">
+                <div class="service-detail-card">
+                    <h4 class="mb-3"><i class="fas fa-question-circle text-primary me-2"></i>费用如何计算？</h4>
+                    <p class="text-muted">
+                        我们根据项目需求、功能复杂度、开发周期等因素综合评估。首次咨询免费，需求确认后会提供详细的报价方案。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script src="/assets/vendor/jquery/jquery.min.js?v=20251110"></script>
+    <script src="/assets/vendor/jquery-validate/jquery.validate.min.js?v=20251110"></script>
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function () {
+            mobileMenu.classList.toggle('active');
+        });
+
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Tech banner particles
+        (function createParticlesFor(id, count = 50) {
+            const container = document.getElementById(id);
+            if (!container) return;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                const size = Math.random() * 4 + 2; // 2-6px
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.animationDelay = (Math.random() * 8) + 's';
+                particle.style.animationDuration = (Math.random() * 12 + 12) + 's';
+                container.appendChild(particle);
+            }
+        })('contactParticles', 48);
+
+        // Contact Form
+        (function () {
+            // 自定义电话号码验证（中国手机号或区号-座机）
+            $.validator.addMethod('cnphone', function (value, element) {
+                if (!value) return false;
+                const v = value.replace(/\s+/g, '');
+                const mobile = /^(?:(?:\+?86)?1[3-9]\d{9})$/; // 11位手机号
+                const tel = /^(?:0\d{2,3}-)?\d{7,8}$/;       // 座机 0755-xxxxxxx
+                return mobile.test(v) || tel.test(v);
+            }, '请输入有效的联系电话');
+
+            const $form = $('#contactForm');
+            const $btn = $('#submitBtn');
+
+            function showToast(message, type = 'success') {
+                const root = document.getElementById('toastRoot') || document.body;
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type} border-0`;
+                toast.role = 'alert';
+                toast.ariaLive = 'assertive';
+                toast.ariaAtomic = 'true';
+                toast.innerHTML = `
+                  <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>`;
+                (document.getElementById('toastRoot') || document.body).appendChild(toast);
+                const bsToast = new bootstrap.Toast(toast, {delay: 3000});
+                bsToast.show();
+                toast.addEventListener('hidden.bs.toast', () => toast.remove());
+            }
+
+            $form.validate({
+                ignore: [],
+                rules: {
+                    name: {required: true, minlength: 2, normalizer: v => $.trim(v)},
+                    email: {required: true, email: true, normalizer: v => $.trim(v)},
+                    phone: {required: true, cnphone: true, normalizer: v => $.trim(v)},
+                    service: {required: true},
+                    message: {required: true, minlength: 10, normalizer: v => $.trim(v)}
+                },
+                messages: {
+                    name: {required: '请输入您的姓名', minlength: '至少2个字符'},
+                    email: {required: '请输入邮箱', email: '邮箱格式不正确'},
+                    phone: {required: '请输入联系电话'},
+                    service: {required: '请选择服务类型'},
+                    message: {required: '请填写需求', minlength: '不少于10个字符'}
+                },
+                highlight: function (element) {
+                    element.classList.add('is-invalid');
+                },
+                unhighlight: function (element) {
+                    element.classList.remove('is-invalid');
+                },
+                submitHandler: function (form) {
+                    var formData = {
+                        Name: $("#name").val().trim(),
+                        Email: $("#email").val().trim(),
+                        Phone: $("#phone").val().trim(),
+                        Service: $("#service").val().trim(),
+                        Message: $("#message").val().trim()
+                    };
+                    $btn.addClass('loading').prop('disabled', true);
+                    $.ajax({
+                        url: '/index?handler=SubmitContact',
+                        method: 'POST',
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        data: formData,
+                        headers: {
+                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        timeout: 8000,
+                        success: function (res) {
+                            if (res && res.success) {
+                                showToast(`提交成功！工单号：${res.ticket}`, 'success');
+                                $("#name").val("");
+                                $("#email").val("");
+                                $("#phone").val("");
+                                $("#service").val("");
+                                $("#message").val("");
+                                $(form).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+                            } else {
+                                showToast((res && res.message) || '提交失败，请稍后再试', 'danger');
+                            }
+                        },
+                        error: function (xhr) {
+                            const msg = (xhr && xhr.responseJSON && xhr.responseJSON.message) || '网络繁忙，请稍后再试';
+                            showToast(msg, 'danger');
+                        },
+                        complete: function () {
+                            $btn.removeClass('loading').prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            // 显式按钮点击校验与拦截，避免“直接提交”
+            $btn.on('click', function (e) {
+                e.preventDefault();
+                if ($btn.prop('disabled')) return;
+                const ok = $form.valid();
+                if (!ok) {
+                    // 友好提示并聚焦第一个错误字段
+                    showToast('请完善表单信息后再提交', 'warning');
+                    const $first = $form.find('.is-invalid, :invalid').first();
+                    if ($first.length) $first.trigger('focus');
+                    return;
+                }
+                // 交由 validate 的 submitHandler 统一处理 AJAX 提交
+                $form.trigger('submit');
+            });
+
+            // 交互优化：输入变更即清除错误提示
+            $('#contactForm').on('input change', 'input, select, textarea', function () {
+                $(this).removeClass('is-invalid');
+                const box = this.closest('.form-group')?.querySelector('.invalid-feedback');
+                if (box) box.style.display = 'none';
+            });
+        })();
+    </script>
+}

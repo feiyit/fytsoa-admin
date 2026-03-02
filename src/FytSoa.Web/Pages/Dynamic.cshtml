@@ -1,0 +1,173 @@
+@page "{type?}"
+@using FytSoa.Application.Cms
+@using FytSoa.Common.Param
+@using FytSoa.Common.Result
+@inject CmsColumnService _columnService
+@inject CmsArticleService _articleService
+@{
+    var page = Request.Query["page"];
+    page = string.IsNullOrEmpty(page) ? "1" : page.ToString();
+    var param = RouteData.Values["type"];
+    var paramType = string.IsNullOrEmpty(param?.ToString()) ? string.Empty : param.ToString();
+    var column = _columnService.GetListAsync(new WhereParam()).Result;
+    var list =new PageResult<CmsArticleDto>();
+    if(string.IsNullOrEmpty(paramType))
+    {
+        var caseColumn = column.Where(m => m.ParentId == 1529313081493164034).Select(m => m.Id).ToList();
+        list = _articleService.PagesAsync(new CmsArticleParam() { Limit = 12, Page = int.Parse(page), ColumnList= caseColumn }).Result;
+    }
+    else
+    {
+        list = _articleService.PagesAsync(new CmsArticleParam() { Limit = 12, Page = int.Parse(page), Id = string.IsNullOrEmpty(paramType) ? 0 : column.FirstOrDefault(m => m.EnTitle == paramType).Id }).Result;
+    }
+    var activeColumn = string.IsNullOrEmpty(paramType) ? new CmsColumnDto() { Id = 0, Title = "案例中心" } : column.FirstOrDefault(m => m.EnTitle == paramType);
+    ViewData["Title"] = activeColumn.Title+ "_" + Site.CurrentSite.SeoTitle;
+    ViewData["Key"] = Site.CurrentSite.SeoKey;
+    ViewData["Desc"] = Site.CurrentSite.SeoDescribe;
+    ViewData["Nav"] = 3;
+}
+<!-- Page Header -->
+    <section class="page-header">
+        <div class="hero-overlay"></div>
+        <div class="mesh-bg"></div>
+        <div class="tech-grid"></div>
+        <div class="floating-elements">
+            <div class="float-circle float-1"></div>
+            <div class="float-circle float-2"></div>
+            <div class="float-square float-4"></div>
+        </div>
+        <div class="container text-center">
+            <div class="hero-badge fade-in">
+                <i class="fas fa-newspaper"></i> 行业资讯
+            </div>
+            <h1 class="display-4 fw-bold mb-3">新闻资讯</h1>
+            <p class="lead mb-4">了解最新的技术趋势与行业动态,掌握前沿信息</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="/">首页</a></li>
+                    <li class="breadcrumb-item active">新闻</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-5">
+        <div class="filter-buttons fade-in mb-5">
+            <a href="/dynamic" >
+                <button class="filter-btn@(string.IsNullOrEmpty(param?.ToString())?" active":"")" data-filter="all">全部</button>
+            </a>
+            @{
+                var cclass = column.Where(m => m.ParentId == 1529313081493164034).ToList();
+                foreach (var item in cclass)
+                {
+                    <a href="/dynamic/@item.EnTitle">
+                        <button class="filter-btn@(activeColumn.Id==item.Id?" active":"")"  data-filter="@item.Id">@item.Title</button>
+                    </a>
+                }
+            }
+        </div>
+        <div class="container">
+            <div class="row">
+                @foreach (var item in list.Items)
+                {
+                    <div class="col-lg-4 col-md-6 fade-in mb-4">
+                        <article class="news-item">
+                            <div class="news-item-image">
+                                <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title" loading="lazy">
+                                <span class="news-item-date">@item.PublishTime.ToShortDateString()</span>
+                            </div>
+                            <div class="news-item-content">
+                                <div class="news-item-tags">
+                                    @foreach (var tag in item.Tag)
+                                    {
+                                        <span class="news-tag">@tag</span>
+                                    }
+                                </div>
+                                <h3 class="news-item-title">@item.Title</h3>
+                                <p class="news-item-desc">@item.Summary</p>
+                                <div class="news-item-meta">
+                                    <span><i class="far fa-eye"></i> @item.Hits</span>
+                                    <a href="/dynamic/detail/@item.Id" class="news-read-more">查看详情 <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                }
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="新闻分页" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    @Html.Raw(PageHelper.Htmls(Convert.ToInt32(page), 12, Convert.ToInt32(list.TotalItems), "/dynamic/" + activeColumn.EnTitle))
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-light py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">订阅我们的技术博客</h2>
+            <p class="lead mb-4">获取最新的技术文章和行业洞察</p>
+            <a href="contact.html" class="cta-button">
+                联系我们 <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </section>
+    @section Scripts
+    {
+        <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Lazy loading
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+    </script>
+    }
+

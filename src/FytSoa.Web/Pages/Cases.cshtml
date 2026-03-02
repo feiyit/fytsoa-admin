@@ -1,0 +1,203 @@
+@page "{type?}"
+@using System.Linq
+@using FytSoa.Application.Cms
+@using FytSoa.Common.Param
+@using FytSoa.Common.Result
+@inject CmsColumnService _columnService
+@inject CmsArticleService _articleService
+@{ 
+    var page = Request.Query["page"];
+    page = string.IsNullOrEmpty(page) ? "1" : page.ToString();
+    var param = RouteData.Values["type"];
+    var paramType = string.IsNullOrEmpty(param?.ToString()) ? string.Empty : param.ToString();
+    var Column = _columnService.GetListAsync(new WhereParam()).Result;
+    var Case =new PageResult<CmsArticleDto>();
+    if(string.IsNullOrEmpty(paramType))
+    {
+        var caseColumn = Column.Where(m => m.ParentId == 1529313037205508096).Select(m => m.Id).ToList();
+        Case = _articleService.PagesAsync(new CmsArticleParam() { Limit = 12, Page = int.Parse(page), ColumnList= caseColumn }).Result;
+    }
+    else
+    {
+        Case = _articleService.PagesAsync(new CmsArticleParam() { Limit = 12, Page = int.Parse(page), Id = string.IsNullOrEmpty(paramType) ? 0 : Column.FirstOrDefault(m => m.EnTitle == paramType).Id }).Result;
+    }
+    var activeColumn = string.IsNullOrEmpty(paramType) ? new CmsColumnDto() { Id = 0, Title = "案例中心" } : Column.FirstOrDefault(m => m.EnTitle == paramType);
+    ViewData["Title"] = activeColumn.Title+ "_" + Site.CurrentSite.SeoTitle;
+    ViewData["Key"] = Site.CurrentSite.SeoKey;
+    ViewData["Desc"] = Site.CurrentSite.SeoDescribe;
+    ViewData["Nav"] = 2;
+}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="hero-overlay"></div>
+    <div class="mesh-bg"></div>
+    <div class="tech-grid"></div>
+    <div class="floating-elements">
+        <div class="float-circle float-1"></div>
+        <div class="float-circle float-2"></div>
+        <div class="float-square float-4"></div>
+    </div>
+    <div class="container text-center">
+        <div class="hero-badge fade-in">
+            <i class="fas fa-trophy"></i> 精选案例
+        </div>
+        <h1 class="display-4 fw-bold mb-3">成功案例</h1>
+        <p class="lead mb-4">我们的作品遍布各行各业,每一个项目都倾注心血,打造精品</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                <li class="breadcrumb-item active">案例</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Cases Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="filter-buttons fade-in mb-5">
+            <a href="/cases" >
+                <button class="filter-btn@(string.IsNullOrEmpty(param?.ToString())?" active":"")" data-filter="all">全部</button>
+            </a>
+            @{
+                var cclass = Column.Where(m => m.ParentId == 1529313037205508096).ToList();
+                foreach (var item in cclass)
+                {
+                    <a href="/cases/@item.EnTitle">
+                        <button class="filter-btn@(activeColumn.Id==item.Id?" active":"")" data-filter="@item.Id">@item.Title</button>
+                    </a>
+                }
+            }
+        </div>
+
+        <div class="row" id="casesContainer">
+            @foreach (var item in Case.Items)
+            {
+                <div class="col-lg-4 col-md-6 fade-in case-item mb-4" data-category="@item.ColumnId">
+                    <a href="/cases/detail/@item.Id" class="case-card-link">
+                        <div class="case-card">
+                            <div class="case-image-wrapper">
+                                <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title"
+                                     class="case-image" loading="lazy">
+                                <div class="case-overlay">
+                                    <span class="case-overlay-btn">查看详情</span>
+                                </div>
+                            </div>
+                            <div class="case-content">
+                                @foreach (var row in item.Tag)
+                                {
+                                    <span class="case-category">@row</span>
+                                }
+                                <h3>@item.Title</h3>
+                                <p>@item.Summary</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="案例分页" class="mt-5">
+            <ul class="pagination justify-content-center">
+                @Html.Raw(PageHelper.Htmls(Convert.ToInt32(page), 12, Convert.ToInt32(Case.TotalItems), "/cases/" + activeColumn.EnTitle))
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">想要了解更多案例细节？</h2>
+        <p class="lead mb-4">联系我们，获取完整的项目案例手册</p>
+        <a href="/contactus" class="cta-button">
+            联系我们 <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function () {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Case Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const caseItems = document.querySelectorAll('.case-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                caseItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Lazy loading
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+    </script>
+}

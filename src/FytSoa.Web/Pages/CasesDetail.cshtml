@@ -1,0 +1,175 @@
+@page "/cases/detail/{id?}"
+@using FytSoa.Application.Cms
+@using FytSoa.Common.Param
+@inject CmsColumnService _columnService
+@inject CmsArticleService _articleService
+@{
+    var paramId = RouteData.Values["id"].ToString();
+    var article =  _articleService.GetAsync(long.Parse(paramId)).Result;
+    var articleList = _articleService.PagesAsync(new CmsArticleParam() { Limit = 6, Id = article.ColumnId }).Result.Items;
+    ViewData["Title"] = article.Title;
+    ViewData["Key"] = article.Tag;
+    ViewData["Desc"] = article.Summary;
+    ViewData["Nav"] = 2;
+}
+<!-- Page Header -->
+    <section class="page-header">
+        <div class="mesh-bg"></div>
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">案例详情</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="/">首页</a></li>
+                    <li class="breadcrumb-item"><a href="/cases">案例</a></li>
+                    <li class="breadcrumb-item active">详情</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Case Detail Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- 案例信息 -->
+                    <div class="case-detail-header mb-5">
+                        @foreach (var tag in article.Tag)
+                        {
+                        <span class="case-detail-category">@tag</span>
+                        }
+                        <h1 class="case-detail-title">@article.Title</h1>
+                        <div class="case-detail-meta">
+                            <span><i class="far fa-calendar-alt"></i> @article.PublishTime.ToShortDateString()</span>
+                            <span><i class="far fa-eye"></i> @article.Hits</span>
+                            <span><i class="fas fa-tags"></i>  @foreach (var tag in article.Tag)
+                                                               {
+                                                                   @tag 
+                                                               }</span>
+                        </div>
+                    </div>
+
+                    <!-- 案例图片轮播 -->
+                    <div class="case-gallery mb-5">
+                        <div id="caseCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#caseCarousel" data-bs-slide-to="0" class="active"></button>
+                                <button type="button" data-bs-target="#caseCarousel" data-bs-slide-to="1"></button>
+                                <button type="button" data-bs-target="#caseCarousel" data-bs-slide-to="2"></button>
+                                <button type="button" data-bs-target="#caseCarousel" data-bs-slide-to="3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="@article.ImgUrl" class="d-block w-100" alt="@article.Title">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#caseCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                                <span class="visually-hidden">上一张</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#caseCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                                <span class="visually-hidden">下一张</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 案例描述 -->
+                    <div class="case-detail-content">
+                        @Html.Raw(article.Content)
+                    </div>
+                </div>
+
+                <!-- 侧边栏 -->
+                <div class="col-lg-4">
+                    <div class="case-sidebar">
+                        <div class="case-sidebar-card mb-4">
+                            <h3 class="case-sidebar-title">项目信息</h3>
+                            <div class="case-info-item">
+                                <strong>客户：</strong>
+                                <span>@article.Title</span>
+                            </div>
+                            <div class="case-info-item">
+                                <strong>行业：</strong>
+                                <span>@article.Tag[0]</span>
+                            </div>
+                            <div class="case-info-item">
+                                <strong>服务：</strong>
+                                <span>网站开发、小程序开发</span>
+                            </div>
+                            <div class="case-info-item">
+                                <strong>周期：</strong>
+                                <span>1个月</span>
+                            </div>
+                            <div class="case-info-item">
+                                <strong>完成时间：</strong>
+                                <span>@article.PublishTime.ToShortDateString()</span>
+                            </div>
+                        </div>
+
+                        <div class="case-sidebar-card mb-4">
+                            <h3 class="case-sidebar-title">相关案例</h3>
+                            @foreach (var item in articleList)
+                            {
+                                <div class="related-case-item">
+                                    <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title">
+                                    <div class="related-case-info">
+                                        <h4>@item.Title</h4>
+                                        <p>@(item.Tag.Count>0?item.Tag[0]:"软件开发")</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="case-sidebar-card">
+                            <h3 class="case-sidebar-title">联系我们</h3>
+                            <p class="mb-3">如果您对此案例感兴趣，欢迎联系我们了解更多详情</p>
+                            <a href="/contactus" target="_blank" class="cta-button w-100 text-center">
+                                立即咨询 <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @section Scripts
+    {
+        <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+    }

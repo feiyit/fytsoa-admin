@@ -1,0 +1,219 @@
+﻿@using FytSoa.Application.Sys
+@using FytSoa.Application.Sys.Param
+@using FytSoa.Common.Cache
+@using FytSoa.Common.Utils
+@inject SysAdvInfoService _advService
+@{
+    var navActive = Convert.ToInt32(ViewData["Nav"]);
+    var advList = MemoryService.Default.GetCache<List<SysAdvInfoDto>>(KeyUtils.WEBCMSADV) ?? [];
+    if (advList.Count==0)
+    {
+        var res = await _advService.GetPagesAsync(new CodePageParam());
+        advList = res.Items;
+        MemoryService.Default.SetCache(KeyUtils.WEBCMSADV,advList);
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <meta name="keywords" content="@ViewData["Key"]" />
+    <meta name="description" content="@ViewData["Desc"]" />
+    <link href="/assets/vendor/bootstrap/bootstrap.min.css?v=20251110" rel="stylesheet">
+    <link href="/assets/vendor/tailwind/tailwind.min.css?v=20251110" rel="stylesheet">
+    <link href="/assets/vendor/fontawesome/css/all.min.css?v=20251110" rel="stylesheet">
+    <link href="/assets/fonts/inter/inter.css?v=20251110" rel="stylesheet">
+    <link href="/style/fyt.css?v=20251110" rel="stylesheet">
+</head>
+<body>
+<header>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fyt-logo" href="/">
+                <img src="/assets/img/fyt-logo.png" alt="飞易腾科技" />
+            </a>
+
+            <button class="navbar-toggler" type="button" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==0?" active":"")" href="/">首页</a>
+                    </li>
+                    <li class="nav-item dropdown mega-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">产品</a>
+                        <div class="dropdown-menu mega-menu shadow-lg p-0" aria-labelledby="navProducts">
+                            <div class="container py-3">
+                                <div class="row g-3">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <a class="product-card d-block p-3" href="#crm">
+                                            <div class="product-thumb ratio ratio-16x9 mb-2">
+                                                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600" alt="CRM 客户关系管理系统" loading="lazy">
+                                            </div>
+                                            <h6 class="mb-1">CRM（客户关系管理系统）</h6>
+                                            <p class="product-desc small mb-0">统一客户画像、商机到回款全流程，智能跟进与分析。</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <a class="product-card d-block p-3" href="#erp">
+                                            <div class="product-thumb ratio ratio-16x9 mb-2">
+                                                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600" alt="ERP 进销存系统" loading="lazy">
+                                            </div>
+                                            <h6 class="mb-1">ERP（进销存系统）</h6>
+                                            <p class="product-desc small mb-0">采购/销售/库存一体化管理，多仓批次与财务对账。</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <a class="product-card d-block p-3" href="#b2c">
+                                            <div class="product-thumb ratio ratio-16x9 mb-2">
+                                                <img src="https://images.unsplash.com/photo-1542831371-d531d36971e6?w=600" alt="B2C 商城系统" loading="lazy">
+                                            </div>
+                                            <h6 class="mb-1">B2C（商城系统）</h6>
+                                            <p class="product-desc small mb-0">多端商城、会员营销、订单物流与售后全链路。</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <a class="product-card d-block p-3" href="#cms">
+                                            <div class="product-thumb ratio ratio-16x9 mb-2">
+                                                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=600" alt="CMS 内容管理系统" loading="lazy">
+                                            </div>
+                                            <h6 class="mb-1">CMS（内容管理系统）</h6>
+                                            <p class="product-desc small mb-0">所见即所得编辑、权限与发布流程、SEO 友好。</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==1?" active":"")" href="/service">服务</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==2?" active":"")" href="/cases">案例</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==3?" active":"")" href="/dynamic">新闻</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==4?" active":"")" href="/aboutus">关于</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link@(navActive==5?" active":"")" href="/contactus">联系</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <span class="dark-mode-toggle" id="darkModeToggle">
+                            <i class="fas fa-moon"></i>
+                        </span>
+                    </li> -->
+                </ul>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a class="nav-link" href="/">首页</a>
+                <span class="nav-link">产品</span>
+                <a class="nav-link small" href="#crm">CRM（客户关系管理系统）</a>
+                <a class="nav-link small" href="#erp">ERP（进销存系统）</a>
+                <a class="nav-link small" href="#b2c">B2C（商城系统）</a>
+                <a class="nav-link small" href="#cms">CMS（内容管理系统）</a>
+                <a class="nav-link" href="/service">服务</a>
+                <a class="nav-link" href="/cases">案例</a>
+                <a class="nav-link" href="/dynamic">新闻</a>
+                <a class="nav-link" href="/aboutus">关于</a>
+                <a class="nav-link" href="/contactus">联系</a>
+            </div>
+        </div>
+    </nav>
+</header>
+@RenderBody()
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <!-- 友情链接 -->
+            <div class="友links-section">
+                <h4 class="text-center mb-4" style="color: white; font-weight: 600;">友情链接</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="friendly-links">
+                            @{ var adv = advList.Where(m => m.ColumnId == 1620259426890027009).OrderByDescending(m => m.Sort).ThenBy(m => m.Sort).ToList();
+                               if (adv.Any())
+                               {
+                                   foreach (var item in adv)
+                                   {
+                                       <a href="@item.LinkUrl" target="@item.Target" title="@item.Title">@item.Title</a> }
+                               } }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 二维码和备案信息 -->
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <div class="qrcode-section">
+                            <div class="qrcode-item">
+                                <div class="qrcode-placeholder">
+                                    <i class="fab fa-weixin" style="font-size: 4rem; color: #07c160;"></i>
+                                    <p class="mt-2 mb-0" style="font-size: 0.85rem;">微信公众号</p>
+                                </div>
+                            </div>
+                            <div class="qrcode-item">
+                                <div class="qrcode-placeholder">
+                                    <i class="fas fa-qrcode" style="font-size: 4rem; color: #6366f1;"></i>
+                                    <p class="mt-2 mb-0" style="font-size: 0.85rem;">微信小程序</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="beian-info">
+                            <p class="mb-2">
+                                <span><i class="fas fa-shield-alt me-2"></i></span>
+                                开户行:中国建设银行北京华威支行
+                            </p>
+                            <p class="mb-2">
+                                <span><i class="fas fa-balance-scale me-2"></i></span>
+                                信用代码:911101080613253861
+                            </p>
+                            <p class="mb-2">
+                                <span><i class="fas fa-copyright me-2"></i></span>
+                                帐户名称：北京飞易腾科技有限公司
+                            </p>
+                            <p class="mb-0">
+                                <span><i class="fas fa-map-marker-alt me-2"></i></span>
+                                帐号：11001070600053022690
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最底部申明 -->
+            <div class="footer-disclaimer">
+                <!-- 社交媒体 -->
+                <div class="text-center">
+                    <div class="footer-links mb-4">
+                        <a href="#" class="social-icon" title="微信"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-icon" title="微博"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-icon" title="Github"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon" title="领英"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    <p class="mb-2" style="font-size: 1rem;">&copy; 2025 飞易腾科技 版权所有 
+                        <a href="https://beian.miit.gov.cn" target="_blank" class="beian-link">京ICP备13006710号-1</a></p>
+                    <p class="small mb-4">专注于创新的网站建设服务 | 飞速响应 · 易用体验 · 腾飞助力</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="/assets/vendor/bootstrap/bootstrap.bundle.min.js?v=20251110"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* Shop (B2C) page theme */
+:root { --shop-primary:#ec4899; --shop-accent:#a855f7; }
+.shop-hero{ position:relative; padding:150px 0 100px; overflow:hidden; }
+.shop-hero .bg{ position:absolute; inset:0; background-size:cover; background-position:center; filter:saturate(1.1); }
+.shop-hero .overlay{ position:absolute; inset:0; background:radial-gradient(1200px 400px at 20% 20%, rgba(236,72,153,.9), transparent 60%), linear-gradient(135deg, rgba(168,85,247,.85), rgba(236,72,153,.85)); }
+.shop-hero .content{ position:relative; z-index:2; color:#fff; }
+.shop-feature{ background:#fff; border:1px solid rgba(236,72,153,.14); border-radius:18px; padding:1.4rem; height:100%; box-shadow:0 14px 34px rgba(15,23,42,.08); transition:transform .2s ease, box-shadow .2s ease; }
+body.dark-mode .shop-feature{ background:var(--dark-card); border-color:rgba(148,163,184,.22); }
+.shop-feature:hover{ transform:translateY(-4px); box-shadow:0 22px 60px rgba(15,23,42,.16); }
+.shop-shot{ border-radius:16px; overflow:hidden; box-shadow:0 22px 60px rgba(15,23,42,.16); border:1px solid rgba(236,72,153,.15); }
+

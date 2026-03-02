@@ -1,0 +1,1070 @@
+﻿@page
+@using FytSoa.Application.Cms
+@using FytSoa.Common.Param
+@model IndexModel
+@inject CmsColumnService _columnService
+@inject CmsArticleService _articleService
+@{
+    
+    ViewData["Title"] = Site.CurrentSite.SeoTitle;
+    ViewData["Key"] = Site.CurrentSite.SeoKey;
+    ViewData["Desc"] = Site.CurrentSite.SeoDescribe;
+    ViewData["Nav"] = 0;
+    var column = _columnService.GetListAsync(new WhereParam()).Result;
+    var caseColumn = column.Where(m=>m.ParentId== 1529313037205508096).Select(m=>m.Id).ToList();
+    var cases = _articleService.PagesAsync(new CmsArticleParam { Limit = 9,ColumnList= caseColumn }).Result.Items;
+    var articleColumn = column.Where(m => m.ParentId == 1529313081493164034).Select(m=>m.Id).ToList();
+    var article= _articleService.PagesAsync(new CmsArticleParam() { Limit = 12,ColumnList= articleColumn }).Result.Items;
+}
+<!-- Page Loader -->
+<div class="page-loader">
+    <div class="loader-spinner"></div>
+</div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="mesh-bg"></div>
+    <div class="particles-bg" id="particles"></div>
+    <div class="tech-grid"></div>
+    <div class="floating-elements">
+        <div class="float-circle float-1"></div>
+        <div class="float-circle float-2"></div>
+        <div class="float-circle float-3"></div>
+        <div class="float-square float-4"></div>
+        <div class="float-square float-5"></div>
+    </div>
+    <div class="container hero-content text-center">
+        <div class="hero-badge fade-in">
+            <i class="fas fa-star"></i> 专业网站建设服务商
+        </div>
+        <h1 class="hero-title">飞速响应 · 易用体验 · 腾飞助力</h1>
+        <p class="hero-subtitle">专注于为企业提供创新的数字化解决方案，助力业务增长与数字化转型</p>
+        <div class="hero-buttons">
+            <button class="cta-button cta-primary"
+                    onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                开始您的项目 <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+            <button class="cta-button cta-secondary"
+                    onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+                了解更多 <i class="fas fa-info-circle ms-2"></i>
+            </button>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat-item">
+                <div class="hero-stat-number">200+</div>
+                <div class="hero-stat-label">成功项目</div>
+            </div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-number">150+</div>
+                <div class="hero-stat-label">合作企业</div>
+            </div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-number">98%</div>
+                <div class="hero-stat-label">客户满意度</div>
+            </div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-number">13年</div>
+                <div class="hero-stat-label">行业经验</div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span>向下滚动</span>
+    </div>
+</section>
+
+<!-- Keywords Marquee -->
+<section class="py-3">
+    <div class="container">
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <span class="badge-key"><i class="fas fa-globe"></i> 网站建设</span>
+                <span class="badge-key"><i class="fas fa-laptop-code"></i> 软件开发</span>
+                <span class="badge-key"><i class="fas fa-mobile-alt"></i> APP/小程序</span>
+                <span class="badge-key"><i class="fas fa-palette"></i> 视觉设计</span>
+                <span class="badge-key"><i class="fas fa-users-cog"></i> CRM</span>
+                <span class="badge-key"><i class="fas fa-box"></i> ERP</span>
+                <span class="badge-key"><i class="fas fa-shopping-cart"></i> 商城系统</span>
+                <span class="badge-key"><i class="fas fa-cloud"></i> 云原生</span>
+                <span class="badge-key"><i class="fas fa-shield-alt"></i> 安全加固</span>
+                <!-- duplicate for seamless marquee -->
+                <span class="badge-key"><i class="fas fa-globe"></i> 网站建设</span>
+                <span class="badge-key"><i class="fas fa-laptop-code"></i> 软件开发</span>
+                <span class="badge-key"><i class="fas fa-mobile-alt"></i> APP/小程序</span>
+                <span class="badge-key"><i class="fas fa-palette"></i> 视觉设计</span>
+                <span class="badge-key"><i class="fas fa-users-cog"></i> CRM</span>
+                <span class="badge-key"><i class="fas fa-box"></i> ERP</span>
+                <span class="badge-key"><i class="fas fa-shopping-cart"></i> 商城系统</span>
+                <span class="badge-key"><i class="fas fa-cloud"></i> 云原生</span>
+                <span class="badge-key"><i class="fas fa-shield-alt"></i> 安全加固</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Angled Feature Highlights -->
+<section class="feature-angled hidden">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="tilt-card feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>极速交付</h3>
+                    <p>标准化流程 + 组件化资产库，敏捷迭代更高效。</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="tilt-card feature-card" style="background: linear-gradient(135deg,#10b981,#3b82f6)">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>高性能</h3>
+                    <p>性能预算与监控，Core Web Vitals 友好，加载更快。</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="tilt-card feature-card" style="background: linear-gradient(135deg,#f59e0b,#ef4444)">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>更安全</h3>
+                    <p>从开发到部署全链路安全策略，数据更放心。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="bg-light">
+    <div class="container">
+        <h2 class="section-title">核心服务</h2>
+        <p class="section-subtitle">为您提供全方位的网站建设与数字化解决方案</p>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.0s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-globe service-icon"></i>
+                    </div>
+                    <h3>网站建设</h3>
+                    <p>量身定制的企业/品牌官网建设，融合现代美学与商业目标</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 响应式网站设计</li>
+                        <li><i class="fas fa-check"></i> 企业官网开发</li>
+                        <li><i class="fas fa-check"></i> SEO优化服务</li>
+                        <li><i class="fas fa-check"></i> 网站维护升级</li>
+                        <li><i class="fas fa-check"></i> 性能监控优化</li>
+                        <li><i class="fas fa-check"></i> 安全防护加固</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.1s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-laptop-code service-icon"></i>
+                    </div>
+                    <h3>软件开发</h3>
+                    <p>企业级软件系统定制开发，提供完整的技术解决方案</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 管理系统开发</li>
+                        <li><i class="fas fa-check"></i> 业务流程自动化</li>
+                        <li><i class="fas fa-check"></i> 数据分析平台</li>
+                        <li><i class="fas fa-check"></i> API接口开发</li>
+                        <li><i class="fas fa-check"></i> 云原生架构</li>
+                        <li><i class="fas fa-check"></i> 微服务设计</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.2s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-mobile-alt service-icon"></i>
+                    </div>
+                    <h3>APP/小程序开发</h3>
+                    <p>移动端应用开发，覆盖iOS、Android及各类小程序平台</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 原生APP开发</li>
+                        <li><i class="fas fa-check"></i> 微信小程序</li>
+                        <li><i class="fas fa-check"></i> 支付宝小程序</li>
+                        <li><i class="fas fa-check"></i> 跨平台应用</li>
+                        <li><i class="fas fa-check"></i> 移动端UI设计</li>
+                        <li><i class="fas fa-check"></i> 应用上架服务</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.3s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-palette service-icon"></i>
+                    </div>
+                    <h3>视觉设计</h3>
+                    <p>专业的品牌视觉设计，打造独特的品牌形象与用户体验</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> UI/UX设计</li>
+                        <li><i class="fas fa-check"></i> 品牌VI设计</li>
+                        <li><i class="fas fa-check"></i> 平面广告设计</li>
+                        <li><i class="fas fa-check"></i> 交互动效设计</li>
+                        <li><i class="fas fa-check"></i> 视觉规范制定</li>
+                        <li><i class="fas fa-check"></i> LOGO定制设计</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.1s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-box service-icon"></i>
+                    </div>
+                    <h3>ERP进销存系统</h3>
+                    <p>企业资源计划系统，实现进销存一体化管理，提升运营效率</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 采购管理系统</li>
+                        <li><i class="fas fa-check"></i> 销售订单管理</li>
+                        <li><i class="fas fa-check"></i> 库存实时监控</li>
+                        <li><i class="fas fa-check"></i> 财务数据分析</li>
+                        <li><i class="fas fa-check"></i> 供应链管理</li>
+                        <li><i class="fas fa-check"></i> 移动端应用</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.2s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-users-cog service-icon"></i>
+                    </div>
+                    <h3>CRM客户关系系统</h3>
+                    <p>客户关系管理系统，全面管理客户信息，提升客户满意度</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 客户信息管理</li>
+                        <li><i class="fas fa-check"></i> 销售机会跟进</li>
+                        <li><i class="fas fa-check"></i> 营销自动化</li>
+                        <li><i class="fas fa-check"></i> 数据分析报表</li>
+                        <li><i class="fas fa-check"></i> 客户服务管理</li>
+                        <li><i class="fas fa-check"></i> 移动CRM应用</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.3s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-shopping-cart service-icon"></i>
+                    </div>
+                    <h3>TOB/C商城系统</h3>
+                    <p>多端商城解决方案，打造完整的线上购物生态系统</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> PC/移动端商城</li>
+                        <li><i class="fas fa-check"></i> 支付系统集成</li>
+                        <li><i class="fas fa-check"></i> 订单物流管理</li>
+                        <li><i class="fas fa-check"></i> 会员营销系统</li>
+                        <li><i class="fas fa-check"></i> 商品管理系统</li>
+                        <li><i class="fas fa-check"></i> 数据统计分析</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4" style="--reveal-delay:.0s">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-user-friends service-icon"></i>
+                    </div>
+                    <h3>人才外包</h3>
+                    <p>专业技术团队外包服务，为企业提供灵活的人才解决方案</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 前端工程师驻场</li>
+                        <li><i class="fas fa-check"></i> 后端开发团队</li>
+                        <li><i class="fas fa-check"></i> 设计师外包</li>
+                        <li><i class="fas fa-check"></i> 项目经理派遣</li>
+                        <li><i class="fas fa-check"></i> 测试工程师</li>
+                        <li><i class="fas fa-check"></i> 技术顾问服务</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Cases Section -->
+<section id="cases" class="pt-0">
+    <div class="container">
+        <h2 class="section-title">精选案例</h2>
+        <p class="section-subtitle">我们的作品遍布各行各业，每一个项目都倾注心血</p>
+
+        <div class="filter-buttons fade-in">
+            <a href="/cases">
+            <button class="filter-btn active" data-filter="all">全部</button></a>
+            @{
+                var cclass = column.Where(m => m.ParentId == 1529313037205508096).ToList();
+                foreach (var item in cclass)
+                {
+                    <a href="/cases/@item.EnTitle"><button class="filter-btn" data-filter="@item.Id">@item.Title</button></a>
+                }
+            }
+        </div>
+
+        <div class="row" id="casesContainer">
+
+            @foreach (var item in cases)
+            {
+                <div class="col-lg-4 col-md-6 fade-in case-item" data-category="@item.ColumnId">
+                    <div class="case-card tilt-card">
+                        <div class="case-image-wrapper">
+                            <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title"
+                                 class="case-image" loading="lazy">
+                            <div class="case-overlay">
+                                <a href="/cases/detail/@item.Id" class="case-overlay-btn">查看详情</a>
+                            </div>
+                        </div>
+                        <div class="case-content">
+                            @foreach (var row in item.Tag)
+                            {
+                                <span class="case-category">@row</span>
+                            }
+                            <h3>@item.Title</h3>
+                            <p>@item.Summary</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+<section id="news" class="bg-light">
+    <div class="container">
+        <h2 class="section-title">最新资讯</h2>
+        <p class="section-subtitle">了解最新的技术趋势与行业动态</p>
+
+        <div class="row">
+
+            @foreach (var item in article)
+            {
+                <div class="col-lg-4 col-md-6 fade-in mb-4">
+                    <article class="news-item">
+                        <div class="news-item-image">
+                            <img src="@item.ImgUrl.UrlReplace()" alt="@item.Title"
+                                 loading="lazy">
+                            <span class="news-item-date">@item.PublishTime.ToShortDateString()</span>
+                        </div>
+                        <div class="news-item-content">
+                            <div class="news-item-tags">
+                                @foreach (var tag in item.Tag)
+                                {
+                                    <span class="news-tag">@tag</span>
+                                }
+                            </div>
+                            <h3 class="news-item-title">@item.Title</h3>
+                            <p class="news-item-desc">
+                                @item.Summary</p>
+                            <div class="news-item-meta">
+                                <span><i class="far fa-eye"></i> @item.Hits</span>
+                                <a href="/dynamic/detail/@item.Id" class="news-read-more">查看详情
+                                    <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/dynamic" class="cta-button">
+                查看更多资讯 <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Strength Section -->
+<section id="tech" class="bg-light">
+    <div class="container">
+        <h2 class="section-title">我们的实力</h2>
+        <p class="section-subtitle">用数据和成果说话，见证我们的专业与实力</p>
+
+        <!-- 数据统计 -->
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-6 col-6 fade-in mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="stat-number" data-target="200">0</h3>
+                    <p class="stat-label">成功项目</p>
+                    <span class="stat-desc">覆盖多个行业领域</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 fade-in mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="stat-number" data-target="150">0</h3>
+                    <p class="stat-label">合作企业</p>
+                    <span class="stat-desc">长期战略合作伙伴</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 fade-in mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="stat-number" data-target="98">0</h3>
+                    <p class="stat-label">客户满意度</p>
+                    <span class="stat-desc">持续提升服务质量</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6 fade-in mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="stat-number" data-target="13">0</h3>
+                    <p class="stat-label">行业经验</p>
+                    <span class="stat-desc">专注互联网服务</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 荣誉资质 -->
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h3 class="mb-4" style="font-size: 1.8rem; font-weight: 700;">荣誉资质</h3>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h4>ISO9001认证</h4>
+                    <p>国际质量管理体系认证</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>信息安全认证</h4>
+                    <p>ISO27001信息安全管理</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h4>高新技术企业</h4>
+                    <p>国家级高新技术企业认定</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 fade-in mb-4">
+                <div class="certificate-card">
+                    <div class="certificate-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>行业优秀奖</h4>
+                    <p>连续3年获行业服务奖</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 服务保障 -->
+        <div class="row mt-5">
+            <div class="col-12 text-center mb-4">
+                <h3 class="mb-4" style="font-size: 1.8rem; font-weight: 700;">服务保障</h3>
+            </div>
+            <div class="col-lg-4 col-md-6 fade-in mb-4">
+                <div class="guarantee-card">
+                    <i class="fas fa-headset guarantee-icon"></i>
+                    <h4>7×24小时服务</h4>
+                    <p>全天候技术支持团队,随时响应您的需求</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 fade-in mb-4">
+                <div class="guarantee-card">
+                    <i class="fas fa-handshake guarantee-icon"></i>
+                    <h4>质量保证</h4>
+                    <p>严格的质量把控流程,确保项目交付质量</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 fade-in mb-4">
+                <div class="guarantee-card">
+                    <i class="fas fa-sync-alt guarantee-icon"></i>
+                    <h4>持续更新维护</h4>
+                    <p>提供长期技术支持与系统升级服务</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="bg-light">
+    <div class="container">
+        <h2 class="section-title">客户评价</h2>
+        <p class="section-subtitle">听听我们的客户怎么说</p>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 fade-in">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>
+                            飞易腾科技团队非常专业，从需求分析到最终交付，每个环节都做得很到位。网站上线后，客户反馈非常好！</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="客户头像"
+                                 class="author-avatar">
+                            <div>
+                                <strong>张总</strong>
+                                <p class="text-muted mb-0">某集团公司CEO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 fade-in">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>设计非常出色，完全超出了我们的预期。响应速度快，技术支持也很及时，是值得信赖的合作伙伴。</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="客户头像"
+                                 class="author-avatar">
+                            <div>
+                                <strong>李经理</strong>
+                                <p class="text-muted mb-0">某科技公司市场总监</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 fade-in">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left testimonial-quote"></i>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-content">
+                        <p>从咨询到上线，整个流程非常顺畅。技术团队专业度很高，对细节的把控很到位，值得推荐！</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="客户头像"
+                                 class="author-avatar">
+                            <div>
+                                <strong>王先生</strong>
+                                <p class="text-muted mb-0">某创业公司创始人</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <h2 class="section-title">联系我们</h2>
+        <p class="section-subtitle">让我们一起开启您的数字化之旅</p>
+
+        <div class="row">
+            <div class="col-lg-6 fade-in">
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="form-group mb-4">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="您的姓名"
+                               autocomplete="name" required>
+                        <i class="fas fa-user form-icon"></i>
+                        <div class="invalid-feedback" id="nameFeedback">请输入您的姓名（至少2个字符）</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="您的邮箱"
+                               autocomplete="email" required>
+                        <i class="fas fa-envelope form-icon"></i>
+                        <div class="invalid-feedback" id="emailFeedback">请输入有效的邮箱地址</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="联系电话"
+                               autocomplete="tel" required>
+                        <i class="fas fa-phone form-icon"></i>
+                        <div class="invalid-feedback" id="phoneFeedback">请输入有效的手机号或座机号</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <select class="form-control" id="service" name="service" required>
+                            <option value="">请选择服务类型</option>
+                            <option value="网站建设">网站建设</option>
+                            <option value="软件开发">软件开发</option>
+                            <option value="APP/小程序开发">APP/小程序开发</option>
+                            <option value="视觉设计">视觉设计</option>
+                            <option value="人才外包">人才外包</option>
+                            <option value="ERP进销存管理系统">ERP进销存管理系统</option>
+                            <option value="CRM客户关系管理系统">CRM客户关系管理系统</option>
+                            <option value="商城系统">商城系统</option>
+                            <option value="其他咨询">其他咨询</option>
+                        </select>
+                        <i class="fas fa-list form-icon"></i>
+                        <div class="invalid-feedback" id="serviceFeedback">请选择您希望咨询的服务类型</div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" id="message" name="message" rows="6"
+                                  placeholder="项目需求描述（不少于10个字）" required></textarea>
+                        <i class="fas fa-comment-dots form-icon"></i>
+                        <div class="invalid-feedback" id="messageFeedback">请简单描述您的需求，便于我们快速响应</div>
+                    </div>
+                    <button type="submit" class="submit-btn w-100" id="submitBtn">
+                        <span class="btn-text">提交咨询</span>
+                    </button>
+                    <!-- 成功/失败提示容器（Bootstrap Toast/Alert 可复用） -->
+                    <div id="toastRoot" class="position-fixed top-0 end-0 p-3" style="z-index: 1080"></div>
+                    @Html.AntiForgeryToken()
+                </form>
+            </div>
+
+            <div class="col-lg-6 fade-in">
+                <div class="contact-info">
+                    <h3 class="mb-4">联系方式</h3>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>公司地址</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyAddress</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>联系电话</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyTel</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>电子邮箱</strong>
+                            <p class="text-muted mb-0">@Site.CurrentSite.CompanyEmail</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-clock" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <div>
+                            <strong>工作时间</strong>
+                            <p class="text-muted mb-0">周一至周五 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts
+{
+    <script src="/assets/vendor/jquery/jquery.min.js?v=20251110"></script>
+    <script src="/assets/vendor/jquery-validate/jquery.validate.min.js?v=20251110"></script>
+    <script>
+        // Page Loader
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.page-loader').classList.add('hidden');
+            }, 100);
+        });
+
+        // Particles Background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Magnetic buttons (hero CTAs)
+        (function initMagnetic(){
+            const btns = document.querySelectorAll('.hero-buttons .cta-button');
+            const strength = 12;
+            btns.forEach(btn => {
+                const move = (e) => {
+                    const r = btn.getBoundingClientRect();
+                    const x = e.clientX - (r.left + r.width/2);
+                    const y = e.clientY - (r.top + r.height/2);
+                    btn.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
+                };
+                const leave = () => { btn.style.transform = 'translate(0,0)'; };
+                btn.addEventListener('mousemove', move);
+                btn.addEventListener('mouseleave', leave);
+            });
+        })();
+
+        // Tilt cards (3D hover)
+        (function initTilt(){
+            const els = document.querySelectorAll('.tilt-card');
+            const maxDeg = 8;
+            els.forEach(el => {
+                const update = (e) => {
+                    const r = el.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width;  // 0..1
+                    const y = (e.clientY - r.top) / r.height;  // 0..1
+                    const rx = (0.5 - y) * (maxDeg*2);
+                    const ry = (x - 0.5) * (maxDeg*2);
+                    el.style.setProperty('--mx', `${x*100}%`);
+                    el.style.setProperty('--my', `${y*100}%`);
+                    el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+                };
+                const reset = () => {
+                    el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+                };
+                el.addEventListener('mousemove', update);
+                el.addEventListener('mouseleave', reset);
+            });
+        })();
+
+        // Parallax for floating elements in hero
+        (function initParallax(){
+            const layer = document.querySelector('.floating-elements');
+            if(!layer) return;
+            const onScroll = () => {
+                const y = (window.scrollY || window.pageYOffset) * 0.04;
+                layer.style.transform = `translateY(${y}px)`;
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+
+        // Stats Counter Animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        animateCounter(counter, target);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.querySelector('#tech');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Case Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const caseItems = document.querySelectorAll('.case-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                caseItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Contact Form
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+
+            submitBtn.classList.add('loading');
+            btnText.textContent = '提交中...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.classList.remove('loading');
+                btnText.textContent = '提交成功！';
+                submitBtn.style.background = '#10b981';
+
+                contactForm.reset();
+
+                setTimeout(() => {
+                    btnText.textContent = '提交咨询';
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 2000);
+            }, 2000);
+        });
+
+        // Lazy loading
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+
+        // Counter animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Active nav link
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Contact Form
+        (function () {
+            // 自定义电话号码验证（中国手机号或区号-座机）
+            $.validator.addMethod('cnphone', function (value, element) {
+                if (!value) return false;
+                const v = value.replace(/\s+/g, '');
+                const mobile = /^(?:(?:\+?86)?1[3-9]\d{9})$/; // 11位手机号
+                const tel = /^(?:0\d{2,3}-)?\d{7,8}$/;       // 座机 0755-xxxxxxx
+                return mobile.test(v) || tel.test(v);
+            }, '请输入有效的联系电话');
+
+            const $form = $('#contactForm');
+            const $btn = $('#submitBtn');
+
+            function showToast(message, type = 'success') {
+                const root = document.getElementById('toastRoot') || document.body;
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center text-white bg-${type} border-0`;
+                toast.role = 'alert';
+                toast.ariaLive = 'assertive';
+                toast.ariaAtomic = 'true';
+                toast.innerHTML = `
+                  <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>`;
+                (document.getElementById('toastRoot') || document.body).appendChild(toast);
+                const bsToast = new bootstrap.Toast(toast, {delay: 3000});
+                bsToast.show();
+                toast.addEventListener('hidden.bs.toast', () => toast.remove());
+            }
+
+            $form.validate({
+                ignore: [],
+                rules: {
+                    name: {required: true, minlength: 2, normalizer: v => $.trim(v)},
+                    email: {required: true, email: true, normalizer: v => $.trim(v)},
+                    phone: {required: true, cnphone: true, normalizer: v => $.trim(v)},
+                    service: {required: true},
+                    message: {required: true, minlength: 10, normalizer: v => $.trim(v)}
+                },
+                messages: {
+                    name: {required: '请输入您的姓名', minlength: '至少2个字符'},
+                    email: {required: '请输入邮箱', email: '邮箱格式不正确'},
+                    phone: {required: '请输入联系电话'},
+                    service: {required: '请选择服务类型'},
+                    message: {required: '请填写需求', minlength: '不少于10个字符'}
+                },
+                highlight: function (element) {
+                    element.classList.add('is-invalid');
+                },
+                unhighlight: function (element) {
+                    element.classList.remove('is-invalid');
+                },
+                submitHandler: function (form) {
+                    var formData = {
+                        Name: $("#name").val().trim(),
+                        Email: $("#email").val().trim(),
+                        Phone: $("#phone").val().trim(),
+                        Service: $("#service").val().trim(),
+                        Message: $("#message").val().trim()
+                    };
+                    $btn.addClass('loading').prop('disabled', true);
+                    $.ajax({
+                        url: '/index?handler=SubmitContact',
+                        method: 'POST',
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                        data: formData,
+                        headers: {
+                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        timeout: 8000,
+                        success: function (res) {
+                            if (res && res.success) {
+                                showToast(`提交成功！工单号：${res.ticket}`, 'success');
+                                $("#name").val("");
+                                $("#email").val("");
+                                $("#phone").val("");
+                                $("#service").val("");
+                                $("#message").val("");
+                                $(form).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+                            } else {
+                                showToast((res && res.message) || '提交失败，请稍后再试', 'danger');
+                            }
+                        },
+                        error: function (xhr) {
+                            const msg = (xhr && xhr.responseJSON && xhr.responseJSON.message) || '网络繁忙，请稍后再试';
+                            showToast(msg, 'danger');
+                        },
+                        complete: function () {
+                            $btn.removeClass('loading').prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            // 显式按钮点击校验与拦截，避免“直接提交”
+            $btn.on('click', function (e) {
+                e.preventDefault();
+                if ($btn.prop('disabled')) return;
+                const ok = $form.valid();
+                if (!ok) {
+                    // 友好提示并聚焦第一个错误字段
+                    showToast('请完善表单信息后再提交', 'warning');
+                    const $first = $form.find('.is-invalid, :invalid').first();
+                    if ($first.length) $first.trigger('focus');
+                    return;
+                }
+                // 交由 validate 的 submitHandler 统一处理 AJAX 提交
+                $form.trigger('submit');
+            });
+
+            // 交互优化：输入变更即清除错误提示
+            $('#contactForm').on('input change', 'input, select, textarea', function () {
+                $(this).removeClass('is-invalid');
+                const box = this.closest('.form-group')?.querySelector('.invalid-feedback');
+                if (box) box.style.display = 'none';
+            });
+        })();
+    </script>
+}

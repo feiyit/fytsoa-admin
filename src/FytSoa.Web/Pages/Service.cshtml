@@ -1,0 +1,262 @@
+@page
+@{
+    ViewData["Title"] = "服务_"+Site.CurrentSite.SeoTitle;
+    ViewData["Key"] = Site.CurrentSite.SeoKey;
+    ViewData["Desc"] = Site.CurrentSite.SeoDescribe;
+    ViewData["Nav"] = 1;
+}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="hero-bg-image"
+         style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=1920');"></div>
+    <div class="hero-overlay"></div>
+    <div class="mesh-bg"></div>
+    <div class="tech-grid"></div>
+    <div class="floating-elements">
+        <div class="float-circle float-1"></div>
+        <div class="float-circle float-2"></div>
+        <div class="float-square float-4"></div>
+    </div>
+    <div class="container text-center">
+        <div class="hero-badge fade-in">
+            <i class="fas fa-cogs"></i> 专业服务
+        </div>
+        <h1 class="display-4 fw-bold mb-3">核心服务</h1>
+        <p class="lead mb-4">为您提供全方位的网站建设与数字化解决方案,助力企业数字化转型</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                <li class="breadcrumb-item active">服务</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Services Detail Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="service-timeline">
+            <!-- 1. 网站建设（图左 文右） -->
+            <div class="service-row">
+                <div class="service-illustration reveal-left" style="--reveal-delay:.0s">
+                    <img loading="lazy" alt="网站建设"
+                         src="/assets/img/website.jpeg">
+                </div>
+                <div class="service-content reveal-right" style="--reveal-delay:.1s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-globe"></i></span>
+                        <h2>网站建设</h2>
+                    </div>
+                    <p>量身定制的企业网站、品牌官网建设，融合现代美学与商业目标</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 响应式网站设计 - 适配所有设备</li>
+                        <li><i class="fas fa-check-circle"></i> 企业官网开发 - 专业品牌形象</li>
+                        <li><i class="fas fa-check-circle"></i> SEO优化服务 - 提升搜索排名</li>
+                        <li><i class="fas fa-check-circle"></i> 网站维护升级 - 持续技术支持</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. 软件开发（文左 图右） -->
+            <div class="service-row is-reverse">
+                <div class="service-illustration reveal-right" style="--reveal-delay:.1s">
+                    <img loading="lazy" alt="软件开发"
+                         src="/assets/img/soft.jpeg">
+                </div>
+                <div class="service-content reveal-left" style="--reveal-delay:.2s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-laptop-code"></i></span>
+                        <h2>软件开发</h2>
+                    </div>
+                    <p>企业级软件系统定制开发，提供完整的技术解决方案</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 管理系统开发 - 提升管理效率</li>
+                        <li><i class="fas fa-check-circle"></i> 业务流程自动化 - 优化工作流程</li>
+                        <li><i class="fas fa-check-circle"></i> 数据分析平台 - 洞察业务数据</li>
+                        <li><i class="fas fa-check-circle"></i> API接口开发 - 系统无缝对接</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. APP/小程序（图左 文右） -->
+            <div class="service-row">
+                <div class="service-illustration reveal-left" style="--reveal-delay:.2s">
+                    <img loading="lazy" alt="APP/小程序开发"
+                         src="/assets/img/app.jpeg">
+                </div>
+                <div class="service-content reveal-right" style="--reveal-delay:.3s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-mobile-alt"></i></span>
+                        <h2>APP/小程序开发</h2>
+                    </div>
+                    <p>移动端应用开发，覆盖 iOS、Android 及各类小程序平台</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 原生 APP - iOS/Android 双平台</li>
+                        <li><i class="fas fa-check-circle"></i> 微信/支付宝小程序 - 多平台覆盖</li>
+                        <li><i class="fas fa-check-circle"></i> 跨平台应用 - 一次开发多端运行</li>
+                        <li><i class="fas fa-check-circle"></i> 推送/支付/地图等常用能力集成</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. 视觉设计（文左 图右） -->
+            <div class="service-row is-reverse">
+                <div class="service-illustration reveal-right" style="--reveal-delay:.3s">
+                    <img loading="lazy" alt="视觉设计"
+                         src="/assets/img/design.jpeg">
+                </div>
+                <div class="service-content reveal-left" style="--reveal-delay:.4s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-palette"></i></span>
+                        <h2>视觉设计</h2>
+                    </div>
+                    <p>专业的品牌视觉设计，打造独特的品牌形象与用户体验</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> UI/UX 设计 - 极致用户体验</li>
+                        <li><i class="fas fa-check-circle"></i> 品牌 VI - 统一品牌形象</li>
+                        <li><i class="fas fa-check-circle"></i> 平面/广告设计 - 视觉营销传播</li>
+                        <li><i class="fas fa-check-circle"></i> 交互动效设计 - 提升转化与质感</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. 人才外包（图左 文右） -->
+            <div class="service-row">
+                <div class="service-illustration reveal-left" style="--reveal-delay:.4s">
+                    <img loading="lazy" alt="人才外包"
+                         src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600">
+                </div>
+                <div class="service-content reveal-right" style="--reveal-delay:.5s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-user-friends"></i></span>
+                        <h2>人才外包</h2>
+                    </div>
+                    <p>专业技术团队外包服务，为企业提供灵活的人才解决方案</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 前端/后端/测试/设计师等驻场</li>
+                        <li><i class="fas fa-check-circle"></i> 项目经理派遣 - 专业项目管理</li>
+                        <li><i class="fas fa-check-circle"></i> 按月度/项目制灵活合作</li>
+                        <li><i class="fas fa-check-circle"></i> 快速匹配与团队扩编</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 6. ERP（文左 图右） -->
+            <div class="service-row is-reverse">
+                <div class="service-illustration reveal-right" style="--reveal-delay:.5s">
+                    <img loading="lazy" alt="ERP进销存"
+                         src="/assets/img/erp.jpg">
+                </div>
+                <div class="service-content reveal-left" style="--reveal-delay:.6s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-box"></i></span>
+                        <h2>ERP进销存管理系统</h2>
+                    </div>
+                    <p>企业资源计划系统，实现进销存一体化管理，提升运营效率</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 采购/销售/库存一体化</li>
+                        <li><i class="fas fa-check-circle"></i> 多仓/批次/序列号管理</li>
+                        <li><i class="fas fa-check-circle"></i> 财务对账/报表分析</li>
+                        <li><i class="fas fa-check-circle"></i> 与电商/OMS/CRM 对接</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 7. CRM（图左 文右） -->
+            <div class="service-row">
+                <div class="service-illustration reveal-left" style="--reveal-delay:.6s">
+                    <img loading="lazy" alt="CRM 客户关系管理"
+                         src="/assets/img/crm.jpg">
+                </div>
+                <div class="service-content reveal-right" style="--reveal-delay:.7s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-users-cog"></i></span>
+                        <h2>CRM客户关系管理系统</h2>
+                    </div>
+                    <p>客户关系管理系统，全面管理客户信息，提升客户满意度</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> 客户画像/多渠道线索统一</li>
+                        <li><i class="fas fa-check-circle"></i> 商机/合同/回款全流程</li>
+                        <li><i class="fas fa-check-circle"></i> 自动化营销与跟进提醒</li>
+                        <li><i class="fas fa-check-circle"></i> 数据看板/分析报表</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 8. 商城系统（文左 图右） -->
+            <div class="service-row is-reverse">
+                <div class="service-illustration reveal-right" style="--reveal-delay:.7s">
+                    <img loading="lazy" alt="电商/商城系统"
+                         src="/assets/img/shopping.jpg">
+                </div>
+                <div class="service-content reveal-left" style="--reveal-delay:.8s">
+                    <div class="service-heading">
+                        <span class="service-icon-large"><i class="fas fa-shopping-cart"></i></span>
+                        <h2>商城系统</h2>
+                    </div>
+                    <p>多端商城解决方案，打造完整的线上购物生态系统</p>
+                    <ul class="feature-list mt-2">
+                        <li><i class="fas fa-check-circle"></i> PC/移动端商城 - 多端适配</li>
+                        <li><i class="fas fa-check-circle"></i> 多支付方式/会员/优惠券</li>
+                        <li><i class="fas fa-check-circle"></i> 订单/物流/售后全流程</li>
+                        <li><i class="fas fa-check-circle"></i> SEO/活动/积分营销</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">准备开始您的项目了吗？</h2>
+        <p class="lead mb-4">立即联系我们，获取专业的咨询服务</p>
+        <a href="/contactus" class="cta-button">
+            联系我们 <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</section>
+@section Scripts
+{
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // 观察滚动进入的元素（含左右方向）
+        document.querySelectorAll('.fade-in, .reveal-left, .reveal-right').forEach(element => {
+            observer.observe(element);
+        });
+
+        // 非卡片布局下，保留滚动进入动画即可
+    </script>
+}
